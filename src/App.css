@@ -1,0 +1,67 @@
+* {
+    font-family: 'Handjet', Courier, monospace;
+}
+
+*::-webkit-scrollbar {
+    width: 5px;
+    height: 3px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    scroll-behavior: smooth;
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+
+}
+
+*::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-t from-cyan-800 to-cyan-400
+}
+
+
+.space-bg {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    /* Ensures the content stays inside the div */
+}
+
+.space-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(6, 182, 212, 0.15);
+    z-index: 2;
+}
+
+.video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* z-index: 1; */
+}
+
+
+.loading-bg {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    /* Ensures the content stays inside the div */
+}
+
+.loading-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}

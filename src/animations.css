@@ -1,0 +1,46 @@
+/* Define the keyframes for fluctuating effect */
+@keyframes fluctuate {
+    0% {
+        background-color: #ff69b4;
+        /* Pink color */
+    }
+
+    50% {
+        background-color: #ffb6c1;
+        /* Light pink color */
+    }
+
+    100% {
+        background-color: #ff69b4;
+        /* Pink color */
+    }
+}
+
+/* Define the keyframes for bouncing effect */
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.ping-container {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background-color: #ff69b4;
+    /* Default pink color */
+    animation: fluctuate 1s infinite, bounce 1s infinite;
+}
