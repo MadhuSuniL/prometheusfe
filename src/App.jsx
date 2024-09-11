@@ -17,8 +17,8 @@ export default function App() {
   // Detect screen size on mount
   useEffect(() => {
     const handleResize = () => {
-      // Set to true if the window width is less than 768px (common mobile breakpoint)
-      setIsMobile(window.innerWidth < 768);
+      // Set to true if the window width is less than 900px (common mobile breakpoint)
+      setIsMobile(window.innerWidth < 900);
     };
 
     // Add event listener for screen resize
