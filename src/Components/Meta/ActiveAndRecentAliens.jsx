@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { getAlienDataByName } from '../../Utils/aliens';
 import { useNavigate } from 'react-router-dom';
 import { getRecentAliens } from '../../Utils/localstorage';
+import connectAlienSound from '../../assets/connectAlien.mp3'
 
 
 const ActiveAndRecentAliens = () => {
@@ -12,6 +13,10 @@ const ActiveAndRecentAliens = () => {
     const nav = useNavigate()
 
     const handleClick = (alienName) => {
+        const sound = new Audio(connectAlienSound);
+        sound.play().catch((error) => {
+            console.error('Error playing connect alien sound:', error);
+        });
         nav(`/aliens/${alienName}`);
     };
 

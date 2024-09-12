@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import receivedMessageSuccess from '../../assets/receivedMessageSuccess.mp3'
+import messageLoading from '../../assets/messageLoading.mp3'
+import sendMessage from '../../assets/sendMessage.mp3'
 
 const MessageStatus = ({ isLoading, messageLatency }) => {
     const [stage, setStage] = useState(0); // Track the current stage (0: Idle, 1: Sending, 2: Reading, 3: Receiving, 4: Done)
@@ -9,6 +12,7 @@ const MessageStatus = ({ isLoading, messageLatency }) => {
     // Simulate message sending when isLoading is true
     useEffect(() => {
         if (isLoading) {
+            const sound = new Audio(sendMessage);
             setStage(1); // Start sending stage
             setProgress(0);
             const interval = setInterval(() => {
@@ -17,6 +21,10 @@ const MessageStatus = ({ isLoading, messageLatency }) => {
                         clearInterval(interval);
                         setStage(2); // Move to reading stage after sending is done
                     }
+                    const sound = new Audio(messageLoading);
+                    sound.play().catch((error) => {
+                        console.error('Error playing message loading sound:', error);
+                    });
                     return prev + 10; // Increment progress
                 });
             }, sendTime / 10); // Increment over sendTime duration
@@ -33,8 +41,16 @@ const MessageStatus = ({ isLoading, messageLatency }) => {
                 setProgress(prev => {
                     if (prev >= 100) {
                         clearInterval(interval);
+                        const sound = new Audio(receivedMessageSuccess);
+                        sound.play().catch((error) => {
+                            console.error('Error playing receive message success sound:', error);
+                        });
                         setStage(4); // Mark as complete
                     }
+                    const sound = new Audio(messageLoading);
+                    sound.play().catch((error) => {
+                        console.error('Error playing message loading sound:', error);
+                    });
                     return prev + 10; // Increment progress
                 });
             }, sendTime / 10); // Same time for receiving as sending

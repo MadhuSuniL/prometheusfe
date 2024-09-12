@@ -13,7 +13,7 @@ const Meta = ({ isDrawerOpen }) => {
     const { alien_name } = useParams()
 
     const [currentTime, setCurrentTime] = useState(new Date());
-    const [isShowing, setIsShowing] = useState(false); // State to manage spinning
+    const [isShowing, setIsShowing] = useState(true); // State to manage spinning
 
     // Function to update the time every second
     useEffect(() => {

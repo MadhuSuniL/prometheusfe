@@ -2,6 +2,7 @@ import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import { LiaSpinnerSolid } from "react-icons/lia";
 import MessageStatus from '../Meta/MessageStatus';
+import ChunkTypewriter from '../Custom/Typing';
 
 const Response = ({
     alienName,
@@ -32,9 +33,17 @@ const Response = ({
                             <div className='max-w-[750px] mx-auto'>
                                 <h1 className='font-extrabold text-lg text-main mb-2'>{alienName}</h1>
                                 <div className={`pl-5 ${isStreaming ? 'animate-pulse' : ''} ${response.success ? '' : 'p-3 animate-pulse rounded-lg border-2 border-red-700'}`}>
-                                    <ReactMarkdown>
-                                        {response?.content}
-                                    </ReactMarkdown>
+                                    {
+                                        response.length === index + 1 ?
+                                            <ChunkTypewriter
+                                                text={response?.content}
+                                                typeSpeed={1000}
+                                            />
+                                            :
+                                            <ReactMarkdown>
+                                                {response?.content}
+                                            </ReactMarkdown>
+                                    }
                                 </div>
                             </div>
                         </div>

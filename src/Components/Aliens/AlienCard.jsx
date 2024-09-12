@@ -1,6 +1,7 @@
 import React from 'react';
 import { PiAlienBold, PiAlienDuotone, PiAlienFill } from 'react-icons/pi'; // Replace with actual import paths if different
 import { useNavigate } from 'react-router-dom';
+import connectAlienSound from '../../assets/connectAlien.mp3'
 
 const iconForGender = (gender) => {
     switch (gender) {
@@ -19,6 +20,10 @@ const AlienCard = ({ alien }) => {
 
     const handleClick = () => {
         if (alien.alienName) {
+            const sound = new Audio(connectAlienSound);
+            sound.play().catch((error) => {
+                console.error('Error playing connect alien sound:', error);
+            });
             nav(`/aliens/${alien.alienName}`);
         }
     };

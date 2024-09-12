@@ -1,13 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ReactTyped } from 'react-typed';
+import startSound from '../assets/start.mp3';
 
 const GetStarted = () => {
   const navigate = useNavigate();
 
   const handleStartClick = () => {
-    // Redirect to the galaxies page when the button is clicked
-    navigate('/aliens'); // Change '/galaxies' to the desired route
+    const sound = new Audio(startSound);
+    sound.play().catch((error) => {
+      console.error('Error playing start sound:', error);
+    });
+    setTimeout(() => {
+      navigate('/aliens');
+    }, 1);
   };
 
   return (

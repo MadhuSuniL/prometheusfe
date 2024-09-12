@@ -11,6 +11,7 @@ import Ping from '../Components/Chat/Ping'
 import { getAlienDataByName } from '../Utils/aliens'
 
 const Chat = ({
+    loaded,
     isLoading,
     isReceiving,
     sendQuery,
@@ -95,6 +96,8 @@ const Chat = ({
             <div className='flex-0'>
                 <Header
                     alienName={alien_name}
+                    responses={responses}
+                    currentAliensData={currentAliensData}
                     onMessageClear={clearAllMessage}
                 />
             </div>
@@ -114,7 +117,7 @@ const Chat = ({
                             </>
                             :
                             <>
-                                <Intro currentAliensData={currentAliensData} />
+                                <Intro currentAliensData={currentAliensData} loaded={loaded} />
                             </>
                     }
                 </div>

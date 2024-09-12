@@ -53,7 +53,7 @@ const AppLayout = () => {
             </video>
 
             {/* Main content */}
-            <div className='p-1 w-full z-10 rounded-md shadow shadow-cyan-500'>
+            <div className='w-full z-10 rounded-md shadow shadow-cyan-500'>
                 <Outlet />
             </div>
 

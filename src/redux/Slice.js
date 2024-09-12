@@ -2,60 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 
-  responses: {
-    "Zorgon": [
-      {
-        query: 'Hi My name is madhu',
-        success: true,
-        content: 'Hi nice to meet you madhu'
-      },
-      {
-        query: 'Hi My name is madhu',
-        success: true,
-        content: 'Hi nice to meet you madhu'
-      },
-      {
-        query: 'Hi My name is madhu',
-        success: true,
-        content: 'Hi nice to meet you madhu'
-      },
-      {
-        query: 'Hi My name is madhu',
-        success: true,
-        content: 'Hi nice to meet you madhu'
-      },
-      {
-        query: 'Hi My name is madhu',
-        success: true,
-        content: 'Hi nice to meet you madhu'
-      },
-      {
-        query: 'Hi My name is madhu',
-        success: true,
-        content: 'Hi nice to meet you madhu'
-      },
-      {
-        query: 'Hi My name is madhu',
-        success: true,
-        content: 'Hi nice to meet you madhu'
-      },
-      {
-        query: 'Hi My name is madhu',
-        success: true,
-        content: 'Hi nice to meet you madhu'
-      },
-      {
-        query: 'Hi My name is madhu',
-        success: true,
-        content: 'Hi nice to meet you madhu'
-      },
-      {
-        query: 'Hi My name is madhu',
-        success: true,
-        content: 'OK',
-      }
-    ]
-  },
+  responses: {},
   recentAliens: [],
   currentMessageStatus: null
 };

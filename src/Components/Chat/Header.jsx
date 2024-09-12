@@ -2,9 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { BiDownArrow } from "react-icons/bi";
 import Ping from './Ping';
 import { useNavigate } from 'react-router-dom';
+import disconnectSound from '../../assets/disconnect.mp3';
+import clearMessages from '../../assets/clearMessages.mp3';
+import menuSound from '../../assets/menu.mp3';
+import { generatePDF } from '../../Utils/message';
 
 const Header = ({
-    alienName,
+    responses,
+    currentAliensData,
     onMessageClear
 }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,20 +39,39 @@ const Header = ({
     }, []);
 
     const handleExportChat = () => {
-        // Add logic for exporting the chat
-        console.log("Chat exported");
-        setIsMenuOpen(false);
+        if (responses.length > 0) {
+            generatePDF(responses, currentAliensData)
+            setIsMenuOpen(false);
+        }
     };
 
     const handleClearChat = () => {
+        const sound = new Audio(clearMessages);
+        sound.play().catch((error) => {
+            console.error('Error playing clear messages sound:', error);
+        });
         onMessageClear();
         setIsMenuOpen(false);
     };
 
     const handleDisconnectChat = () => {
+        const sound = new Audio(disconnectSound);
+        sound.play().catch((error) => {
+            console.error('Error playing disconnect sound:', error);
+        });
         setIsMenuOpen(false);
         nav('/aliens');
     };
+
+
+    useEffect(() => {
+        const sound = new Audio(menuSound)
+        sound.play().catch((error) => {
+            console.error('Error playing menu sound:', error);
+        })
+    }, [isMenuOpen])
+
+
 
     return (
         <div className="flex items-center justify-between px-4 py-2 w-full z-10 rounded-b-md shadow shadow-cyan-500 relative">
