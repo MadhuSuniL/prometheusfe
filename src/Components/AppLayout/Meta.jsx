@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-// import { clearCurrentTopic } from '../../redux/Slice';
+import { v4 as uuidv4 } from 'uuid';
 import { format } from 'date-fns'; // To format the current date
 import { IoMdLocate } from "react-icons/io";
 import ActiveAndRecentAliens from '../Meta/ActiveAndRecentAliens';
@@ -11,7 +11,7 @@ const Meta = ({ isDrawerOpen }) => {
     const nav = useNavigate();
     const dispatch = useDispatch();
     const { alien_name } = useParams()
-
+    const [connectionId, setConnectionId] = useState(null);
     const [currentTime, setCurrentTime] = useState(new Date());
     const [isShowing, setIsShowing] = useState(true); // State to manage spinning
 
@@ -33,16 +33,23 @@ const Meta = ({ isDrawerOpen }) => {
         setIsShowing(!isShowing);
     };
 
+    useEffect(() => {
+        if (alien_name) {
+            const newId = uuidv4();
+            setConnectionId(newId); // Set the new UUID as the connection ID
+        }
+    }, [alien_name]);
+
     return (
         <>
             <div
-                className={`fixed top-0 left-0 h-full w-80 lg:w-80 text-sm transform transition-transform duration-300 ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`p-1 fixed top-0 left-0 h-full w-80 lg:w-80 text-sm transform transition-transform duration-300 ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full'
                     } md:translate-x-0 md:static`}
             >
-                <div className="flex flex-col h-full p-1">
+                <div className="flex flex-col gap-3 h-full p-1">
                     {/* Header */}
-                    <div className='flex-0 pt-1'>
-                        <div onClick={gotoPrometheus} className='flex justify-evenly cursor-pointer items-center p-1'>
+                    <div className='flex-0 p-2 rounded-md shadow shadow-cyan-500 '>
+                        <div onClick={gotoPrometheus} className='flex justify-evenly cursor-pointer items-center p-2'>
                             <h1 className='text-main text-5xl font-main font-extrabold uppercase'>Prometheus</h1>
                             <IoMdLocate
                                 onClick={toggleSpin} // Add onClick to toggle spin
@@ -60,24 +67,25 @@ const Meta = ({ isDrawerOpen }) => {
                         <h1 className='text-center text-main text-xl my-1 mt-2 font-bold'>{alien_name ? `Active alien - ${alien_name}` : 'Recent aliens'} </h1>
                     </div>
 
-                    {/* Body -1 */}
-                    <div className='flex-1 overflow-y-auto'>
+                    {/* Body */}
+                    <div className='flex-1 overflow-y-auto rounded-md shadow shadow-cyan-500'>
                         <ActiveAndRecentAliens />
-                    </div>
-
-                    {/* Body -2 */}
-                    <div className='flex-1 overflow-y-auto'>
                         <MessageStatus />
                     </div>
 
                     {/* Footer */}
-                    <div className='flex-0 relative'>
+                    <div className='flex-0 p-2 relative rounded-md shadow shadow-cyan-500'>
                         <div className='text-center text-cyan-400'>
-                            <p>&copy; {new Date().getFullYear()} Prometheus. All rights reserved.</p>
+                            {
+                                alien_name ?
+                                    <p className='text-xs text-right'>connection id : {connectionId}</p>
+                                    :
+                                    <p>&copy; {new Date().getFullYear()} Prometheus. All rights reserved.</p>
+                            }
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     );
 };

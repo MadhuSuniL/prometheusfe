@@ -92,8 +92,8 @@ const Chat = ({
 
 
     return (
-        <div id='main' className='flex flex-col h-full w-full relative text-main z-50'>
-            <div className='flex-0'>
+        <div id='main' className='flex flex-col gap-2 p-2 h-full w-full relative text-main z-50'>
+            <div className='flex-0 rounded-md shadow shadow-cyan-500'>
                 <Header
                     alienName={alien_name}
                     responses={responses}
@@ -101,7 +101,7 @@ const Chat = ({
                     onMessageClear={clearAllMessage}
                 />
             </div>
-            <div id='responses' className='flex-1 overflow-auto py-2'>
+            <div id='responses' className='flex-1 mt-2 overflow-auto py-2 rounded-md shadow shadow-cyan-500'>
                 <div className='h-full'>
                     {
                         responses?.length || isLoading || isReceiving ?
@@ -123,7 +123,7 @@ const Chat = ({
                 </div>
             </div>
             <div className='flex-0 pt-2'>
-                <div className='max-w-[800px] mx-auto'>
+                <div className='max-w-[800px] mx-auto p-2 rounded-md shadow shadow-cyan-500'>
                     <Prompt
                         alienName={alien_name}
                         setStaticPrompt={setStaticPrompt}

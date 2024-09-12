@@ -16,7 +16,7 @@ const Header = ({ onSearch }) => {
     };
 
     return (
-        <header className="p-4 text-white text-center">
+        <header className="p-4 pb-0 text-white text-center">
             <h1 className="text-5xl text-main font-bold mb-2">Explore the Aliens</h1>
             <p className="text-lg text-cyan-300 mb-4">
                 <ReactTyped

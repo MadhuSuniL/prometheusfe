@@ -5,18 +5,18 @@ export const getRecentAliens = () => {
 };
 
 // Append alien to recent aliens, ensuring the list behaves as a stack
-export const appendAlienToRecentAliens = (alienName) => {
+export const appendAlienToRecentAliens = (alienData) => {
     let recentAliens = getRecentAliens();
 
     // Remove the alien if it already exists to avoid duplicates
-    recentAliens = recentAliens.filter(alien => alien !== alienName);
+    recentAliens = recentAliens.filter(alien => alien.alienName !== alienData.alienName);
 
     // Add the new alien to the start of the array
-    recentAliens.unshift(alienName);
+    recentAliens.unshift(alienData);
 
     // Slice the array to ensure it only contains the 10 most recent aliens
-    if (recentAliens.length > 5) {
-        recentAliens = recentAliens.slice(0, 5);
+    if (recentAliens.length > 30) {
+        recentAliens = recentAliens.slice(0, 30);
     }
 
     // Update localStorage with the new array

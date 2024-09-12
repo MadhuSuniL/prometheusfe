@@ -1,6 +1,14 @@
 * {
     font-family: 'Handjet', Courier, monospace;
+    text-transform: uppercase !important;
 }
+
+
+*::placeholder {
+    color: #06b6d4 !important;
+    opacity: 0.5 !important;
+}
+
 
 *::-webkit-scrollbar {
     width: 5px;
@@ -44,7 +52,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: none;
     /* z-index: 1; */
 }
 

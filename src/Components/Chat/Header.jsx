@@ -46,12 +46,14 @@ const Header = ({
     };
 
     const handleClearChat = () => {
-        const sound = new Audio(clearMessages);
-        sound.play().catch((error) => {
-            console.error('Error playing clear messages sound:', error);
-        });
-        onMessageClear();
-        setIsMenuOpen(false);
+        if (responses.length > 0) {
+            const sound = new Audio(clearMessages);
+            sound.play().catch((error) => {
+                console.error('Error playing clear messages sound:', error);
+            });
+            onMessageClear();
+            setIsMenuOpen(false);
+        }
     };
 
     const handleDisconnectChat = () => {

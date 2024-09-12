@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getAlienDataByName } from '../../Utils/aliens';
+import { PiAlienBold, PiAlienDuotone, PiAlienFill } from 'react-icons/pi'; // Replace with actual import paths if different
 import { useNavigate } from 'react-router-dom';
 import { getRecentAliens } from '../../Utils/localstorage';
 import connectAlienSound from '../../assets/connectAlien.mp3'
@@ -11,6 +12,18 @@ const ActiveAndRecentAliens = () => {
     const [alien, setAlien] = useState(null);
     const recentAliens = getRecentAliens()
     const nav = useNavigate()
+
+
+    const iconForGender = (gender) => {
+        switch (gender) {
+            case 'male':
+                return <PiAlienBold className="text-cyan-500 text-4xl" />;
+            case 'female':
+                return <PiAlienFill className="text-cyan-500 text-4xl" />;
+            default:
+                return <PiAlienDuotone className="text-cyan-500 text-4xl" />;
+        }
+    };
 
     const handleClick = (alienName) => {
         const sound = new Audio(connectAlienSound);
@@ -71,11 +84,14 @@ const ActiveAndRecentAliens = () => {
                     <div className="text-center flex flex-col gap-1">
                         {
                             recentAliens.length > 0 ?
-                                <div className="text-center flex flex-col gap-1">
+                                <div className="text-center grid grid-cols-2 gap-2">
                                     {
                                         recentAliens.map((alien, index) =>
-                                            <div onClick={() => handleClick(alien)} className='p-2 border-cyan-500 rounded-lg shadow-md bg-opacity-10 bg-cyan-500 transition-transform transform hover:shadow-lg hover:bg-opacity-20 cursor-pointer' key={index}>
-                                                {alien}
+                                            <div onClick={() => handleClick(alien.alienName)} className='p-2 border-cyan-500 rounded-lg shadow-md bg-opacity-10 bg-cyan-500 transition-transform transform hover:shadow-lg hover:bg-opacity-20 hover:border duration-1000 cursor-pointer' key={index}>
+                                                <div className="flex justify-center mb-4">
+                                                    {iconForGender(alien.gender)}
+                                                </div>
+                                                <h1 className='text-lg font-bold'>{alien.alienName}</h1>
                                             </div>
                                         )
                                     }

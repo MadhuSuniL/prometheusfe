@@ -83,7 +83,7 @@ const Prompt = ({ alienName, setStaticPrompt, setPrompt, prompt, onSubmit, isStr
                     <button
                         type="button" // Change to button type to prevent form submission
                         onClick={handleShowPrompts}
-                        className="p-2 bg-transparent text-white rounded-full flex-shrink-0"
+                        className="p-2 bg-transparent text-main font-semibold rounded-full flex-shrink-0"
                     >
                         <WiStars className='text-main' size={30} />
                     </button>
@@ -94,7 +94,7 @@ const Prompt = ({ alienName, setStaticPrompt, setPrompt, prompt, onSubmit, isStr
                         onKeyDown={handleKeyDown}
                         rows={rows}
                         placeholder={`Message to ${alienName}..."`}
-                        className="prompt-placeholder p-2 w-full border-b-[1.5px] bg-transparent outline-none"
+                        className="prompt-placeholder p-2 w-full border-b-[1.5px] border-main bg-transparent outline-none"
                         style={{ resize: 'none', overflow: 'hidden' }}
                     />
                     <button

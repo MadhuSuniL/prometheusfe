@@ -14,6 +14,8 @@ import LoadingScreen from './Pages/LoadingScreen';
 export default function App() {
   const [isMobile, setIsMobile] = useState(false);
 
+
+
   // Detect screen size on mount
   useEffect(() => {
     const handleResize = () => {

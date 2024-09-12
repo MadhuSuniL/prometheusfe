@@ -3,10 +3,13 @@ import bg from '../assets/loading_screen.mp4';
 import Chat from './Chat';
 import { useParams } from 'react-router-dom';
 import { appendAlienToRecentAliens } from '../Utils/localstorage';
+import { ReactTyped } from 'react-typed';
+import { getAlienDataByName } from '../Utils/aliens'
 
 const LoadingScreen = () => {
     const [isVideoComplete, setIsVideoComplete] = useState(false); // State to check if the video is finished
     const { alien_name } = useParams();
+    const currentAliensData = getAlienDataByName(alien_name)
 
     const handleVideoEnd = () => {
         setIsVideoComplete(true);
@@ -18,7 +21,7 @@ const LoadingScreen = () => {
     };
 
     useEffect(() => {
-        appendAlienToRecentAliens(alien_name);
+        appendAlienToRecentAliens(currentAliensData);
     }, [alien_name]);
 
     return (
@@ -38,9 +41,22 @@ const LoadingScreen = () => {
             {
                 !isVideoComplete &&
                 <div
-                    className={`absolute flex items-center w-full justify-center h-1/4 transition-opacity duration-1000 opacity-50`}
+                    className={`absolute flex items-end w-full justify-center h-full transition-opacity duration-1000 opacity-10`}
                 >
-                    <h1 className='text-6xl font-extrabold text-main animate-pulse'>{alien_name}</h1>
+                    <h1 className='text-6xl font-extrabold text-main animate-pulse p-2'>
+                        <ReactTyped
+                            strings={[
+                                `${alien_name}`,
+                                'Loading...',
+                                'Please wait...'
+                            ]}
+                            typeSpeed={40}
+                            smartBackspace
+                            cursorChar='.'
+                            startWhenVisible
+                            loop
+                        />
+                    </h1>
                 </div>
 
             }

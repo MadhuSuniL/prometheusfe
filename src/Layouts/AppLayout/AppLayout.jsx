@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Meta from '../../Components/AppLayout/Meta';
 import bg from '../../assets/bg.mp4';
@@ -8,8 +8,47 @@ import music from '../../assets/bg.mp3'; // Ensure it's a valid audio format
 const AppLayout = () => {
     const isDrawerOpen = useSelector(state => state.store.isDrawerOpen);
     const isNotesOpen = useSelector(state => state.store.isNotesOpen);
-    const location = useLocation(); // Get the current location
     const [isAudioPlaying, setIsAudioPlaying] = useState(false); // State to check if audio is playing
+
+    // Fullscreen functionality
+    const handleFullScreen = () => {
+        const element = document.documentElement; // Get the root element (HTML)
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) { // Firefox
+            element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) { // Chrome, Safari, Opera
+            element.webkitRequestFullscreen();
+        } else if (element.msRequestFullscreen) { // IE/Edge
+            element.msRequestFullscreen();
+        }
+    };
+
+    const onFullScreenChange = () => {
+        if (!document.fullscreenElement) {
+            // Force back to full screen if the user exits
+            handleFullScreen();
+        }
+    };
+
+    useEffect(() => {
+        // Force fullscreen on mount
+        handleFullScreen();
+
+        // Listen for fullscreen changes
+        document.addEventListener("fullscreenchange", onFullScreenChange);
+        document.addEventListener("webkitfullscreenchange", onFullScreenChange);
+        document.addEventListener("mozfullscreenchange", onFullScreenChange);
+        document.addEventListener("msfullscreenchange", onFullScreenChange);
+
+        // Cleanup event listeners on component unmount
+        return () => {
+            document.removeEventListener("fullscreenchange", onFullScreenChange);
+            document.removeEventListener("webkitfullscreenchange", onFullScreenChange);
+            document.removeEventListener("mozfullscreenchange", onFullScreenChange);
+            document.removeEventListener("msfullscreenchange", onFullScreenChange);
+        };
+    }, []);
 
     useEffect(() => {
         const audio = new Audio(music);
@@ -37,7 +76,7 @@ const AppLayout = () => {
     }, []);
 
     return (
-        <div className='flex h-screen font-main space-bg gap-3 p-2'>
+        <div className='flex h-screen font-main space-bg gap-3 p-2 uppercase'>
             {/* Background video */}
             <video
                 className="video-bg"
