@@ -53,7 +53,7 @@ const AppLayout = () => {
     useEffect(() => {
         const audio = new Audio(music);
         audio.loop = true;
-        audio.volume = 0.1; // Adjust the volume as needed
+        audio.volume = 0.5; // Adjust the volume as needed
 
         const playAudio = async () => {
             try {

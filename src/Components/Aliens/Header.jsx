@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { ReactTyped } from 'react-typed';
-import aliensData from '../../Utils/aliens'; // Import the file where the alien data is saved
+import aliensData, { getRecentAliensUniqueCounts } from '../../Utils/aliens'; // Import the file where the alien data is saved
 
 const Header = ({ onSearch }) => {
     const [query, setQuery] = useState('');
     const [count, setCount] = useState(aliensData.length);
+    const recentAliensCounts = getRecentAliensUniqueCounts()
 
     const handleSearchChange = (event) => {
         setQuery(event.target.value);
@@ -16,22 +17,24 @@ const Header = ({ onSearch }) => {
     };
 
     return (
-        <header className="p-4 pb-0 text-white text-center">
-            <h1 className="text-5xl text-main font-bold mb-2">Explore the Aliens</h1>
-            <p className="text-lg text-cyan-300 mb-4">
-                <ReactTyped
-                    strings={[
-                        "Discover and connect with alien civilizations from distant galaxies.",
-                        "Choose an alien to learn more about their world and culture.",
-                    ]}
-                    typeSpeed={20}
-                    backSpeed={20}
-                    backDelay={3000}
-                    loop
-                    className="text-lg text-cyan-300 mb-4"
-                />
-            </p>
-            <div className="flex justify-center items-center space-x-4 w-full">
+        <header className="p-3 pb-0 text-white text-center flex flex-col gap-4">
+            <div className='p-3 rounded-md shadow shadow-cyan-500'>
+                <h1 className="text-5xl text-main font-bold mb-2">Explore the Aliens</h1>
+                <p className="text-lg text-cyan-300 mb-4">
+                    <ReactTyped
+                        strings={[
+                            "Discover and connect with alien civilizations from distant galaxies.",
+                            "Choose an alien to learn more about their world and culture.",
+                        ]}
+                        typeSpeed={20}
+                        backSpeed={20}
+                        backDelay={3000}
+                        loop
+                        className="text-lg text-cyan-300 mb-4"
+                    />
+                </p>
+            </div>
+            <div className="flex justify-center items-center space-x-4 w-full p-4 rounded-md shadow shadow-cyan-500">
                 <input
                     type="text"
                     placeholder="Search aliens..."
@@ -46,10 +49,28 @@ const Header = ({ onSearch }) => {
                     Search
                 </button>
             </div>
-            {/* Display the number of results */}
-            <p className="text-main text-lg m-2 text-right">
-                {count} {count === 1 ? 'result' : 'results'} found {query ? `for query '${query}'` : ''}
-            </p>
+            <div className='grid lg:grid-cols-2 items-center px-5'>
+                <p className="text-main text-lg m-2 mt-0 text-right max-w-[50%]">
+                    <ReactTyped
+                        strings={[
+                            `You have connected with <b>${recentAliensCounts.totalAliens} unique aliens</b>`,
+                            `You have explored <b>${recentAliensCounts.totalPlanets} unique planets</b>`,
+                            `You have explored <b>${recentAliensCounts.totalStars} unique stars</b>`
+                        ]}
+                        typeSpeed={40}
+                        backDelay={3000}
+                        loop
+                    />
+                    {/* {`
+                        You have connected with ${recentAliensCounts.totalAliens} unique aliens, 
+                        You have explored ${recentAliensCounts.totalPlanets} unique planets 
+                        You have explored ${recentAliensCounts.totalStars} unique stars.
+                    `} */}
+                </p>
+                <p className="text-main text-lg m-2 mt-0 text-right">
+                    {count} {count === 1 ? 'result' : 'results'} found {query ? `for query '${query}'` : ''}
+                </p>
+            </div>
         </header>
     );
 };

@@ -1,3 +1,5 @@
+import { getRecentAliens } from "./localstorage";
+
 const aliensData = [
     { alienName: 'Zorgon', planetName: 'Gliese 581g', starName: 'Gliese 581', galaxyName: 'Milky Way', civilizationLevel: 2, distanceFromEarth: '20 light years', alienType: 'informative', gender: 'male' },
     { alienName: 'Qyrix', planetName: 'Kepler-22b', starName: 'Kepler-22', galaxyName: 'Milky Way', civilizationLevel: 3, distanceFromEarth: '620 light years', alienType: 'normal', gender: 'female' },
@@ -118,31 +120,24 @@ export function getAlienDataByName(name) {
     return aliensData.find(alien => alien.alienName === name);
 }
 
-function max() {
-    let max = 0
-    aliensData.forEach(alien => {
-        let distance = parseFloat(alien.distanceFromEarth.replace(',', '').split(' ')[0])
-        if (distance > max) {
-            max = distance
-        }
+
+export function getRecentAliensUniqueCounts() {
+    const recentAlienData = getRecentAliens() || [];
+    const uniquePlanets = new Set();
+    const uniqueStars = new Set();
+    const totalAliens = recentAlienData.length;
+
+    recentAlienData.forEach(alien => {
+        uniquePlanets.add(alien.planetName);
+        uniqueStars.add(alien.starName);
     });
 
-    return max
+    return {
+        totalPlanets: uniquePlanets.size,
+        totalStars: uniqueStars.size,
+        totalAliens: totalAliens
+    };
 }
 
-function min() {
-    let min = 400000
-    aliensData.forEach(alien => {
-        let distance = parseFloat(alien.distanceFromEarth.replace(',', '').split(' ')[0])
-        console.log(distance);
-        if (distance < min) {
-            min = distance
-        }
-    });
-    return min
-
-}
-
-// console.log({ min: min(), max: max() }); { min: 4.2, max: 3500 }
 
 export default aliensData;

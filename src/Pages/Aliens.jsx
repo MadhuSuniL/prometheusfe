@@ -25,12 +25,12 @@ const Aliens = () => {
     }, []);
 
     return (
-        <div className='flex flex-col h-full'>
-            <div className='flex-0'>
+        <div className='flex flex-col p-2 gap-4 h-full'>
+            <div className='flex-0 rounded-md shadow shadow-cyan-500'>
                 <Header onSearch={handleSearch} />
             </div>
-            <div className="flex-1 overflow-y-auto pb-8">
-                <div className="p-4 pt-3">
+            <div className="flex-1 overflow-y-auto pb-8 rounded-md shadow shadow-cyan-500">
+                <div className="p-3">
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {filteredAliens.map((alien, index) => (
                             <AlienCard key={index} alien={alien} />
